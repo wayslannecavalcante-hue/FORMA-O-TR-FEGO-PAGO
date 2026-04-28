@@ -51,7 +51,16 @@ import {
   Trash2,
   CopyPlus,
   Columns,
-  Timer
+  Timer,
+  BarChart3,
+  TrendingUp,
+  Settings,
+  ArrowUpRight,
+  PieChart,
+  ClipboardCheck,
+  ListTodo,
+  CheckSquare,
+  PlaySquare
 } from 'lucide-react';
 
 const fadeUp = {
@@ -2019,7 +2028,7 @@ function Aula09({ onNext }: { onNext: () => void; key?: string }) {
   );
 }
 
-function Aula10({ key }: { key?: string }) {
+function Aula10({ onNext, key }: { onNext?: () => void; key?: string }) {
   return (
     <motion.div
       initial={{ opacity: 0, x: 20 }}
@@ -2300,8 +2309,866 @@ function Aula10({ key }: { key?: string }) {
             Abra o Gerenciador, personalize as colunas e veja as 3 perguntas: Chegou? Qualificada? Vendeu?
           </p>
 
-          <div className="p-6 bg-[var(--color-aeg-blue)]/10 rounded-xl border border-[var(--color-aeg-blue)]/30 uppercase tracking-widest text-sm font-bold text-[var(--color-aeg-blue)] shadow-[0_0_30px_rgba(10,60,218,0.1)]">
+          <div className="p-6 bg-[var(--color-aeg-blue)]/10 rounded-xl border border-[var(--color-aeg-blue)]/30 uppercase tracking-widest text-sm font-bold text-[var(--color-aeg-blue)] shadow-[0_0_30px_rgba(10,60,218,0.1)] mb-10">
             Próxima aula: Métricas para otimizar a fundo e escalar.
+          </div>
+
+          <button onClick={onNext} className="w-full sm:w-auto flex items-center justify-center gap-3 bg-[var(--color-aeg-blue)] hover:bg-blue-800 text-white font-bold py-5 px-10 rounded-xl transition-all text-xl mx-auto shadow-[0_10px_30px_rgba(10,60,218,0.3)] hover:-translate-y-1 cursor-pointer">
+            <PlayCircle className="w-6 h-6" />
+            Ir para Aula 11
+          </button>
+        </motion.div>
+      </footer>
+    </motion.div>
+  );
+}
+
+function Aula11({ onNext, key }: { onNext?: () => void; key?: string }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -20 }}
+      transition={{ duration: 0.3 }}
+    >
+      {/* HEADER / ABERTURA */}
+      <header className="relative min-h-[70vh] flex flex-col justify-center items-center text-center px-6 pt-20 pb-16 border-b border-white/5">
+        <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-[var(--color-aeg-blue)] opacity-10 blur-[100px] rounded-full pointer-events-none"></div>
+        
+        <motion.div 
+          initial="hidden" 
+          animate="visible" 
+          variants={fadeUp}
+          className="max-w-4xl mx-auto flex flex-col items-center"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-sm">
+            <PlayCircle className="w-4 h-4 text-[var(--color-aeg-blue)]" />
+            <span className="text-sm font-semibold tracking-wider uppercase text-gray-300">Aula 11 • Análise e Otimização</span>
+          </div>
+          
+          <h1 className="font-heading text-4xl md:text-6xl font-black uppercase leading-tight tracking-tight mb-6">
+            As 5 Métricas de <br/>
+            <span className="text-[var(--color-aeg-blue)]">Ouro</span>
+          </h1>
+          
+          <p className="text-xl text-gray-400 max-w-2xl font-medium mb-8">
+            Você não precisa virar analista de dados nem entender sopa de letrinhas. Pra loja de veículos, você precisa olhar só para 5 números.
+          </p>
+        </motion.div>
+      </header>
+
+      {/* SEÇÃO 1: 5 MÉTRICAS */}
+      <section className="py-20 px-6 relative">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={staggerContainer}
+          className="max-w-6xl mx-auto"
+        >
+          <div className="text-center mb-16">
+            <h2 className="font-heading text-3xl font-black uppercase mb-4 flex items-center justify-center gap-3">
+              <PieChart className="w-8 h-8 text-[var(--color-aeg-blue)]" />
+              As 5 Métricas que Importam
+            </h2>
+          </div>
+
+          {/* TABELA DE MÉTRICAS */}
+          <motion.div variants={fadeUp} className="bg-[var(--color-aeg-darker)] rounded-2xl border border-white/10 overflow-hidden shadow-2xl">
+            <div className="grid grid-cols-1 md:grid-cols-5 bg-white/5 border-b border-white/10">
+              <div className="p-4 font-bold text-white uppercase text-xs tracking-wider">Métrica</div>
+              <div className="p-4 font-bold text-white uppercase text-xs tracking-wider md:col-span-2">O que é?</div>
+              <div className="p-4 font-bold text-white uppercase text-xs tracking-wider">Faixa Boa</div>
+              <div className="p-4 font-bold text-white uppercase text-xs tracking-wider">Alarme</div>
+            </div>
+
+            <div className="divide-y divide-white/5">
+              {/* 1. Alcance */}
+              <div className="grid grid-cols-1 md:grid-cols-5 p-4 hover:bg-white/5 transition-colors items-center">
+                <div className="font-bold text-white flex items-center gap-2">
+                  <div className="w-6 h-6 bg-blue-500/20 text-blue-400 rounded flex items-center justify-center text-xs">1</div>
+                  Alcance
+                </div>
+                <div className="text-gray-400 text-sm md:col-span-2">Quantas pessoas DIFERENTES viram seu anúncio.</div>
+                <div className="text-green-400 text-sm font-medium">Contínuo e crescente</div>
+                <div className="text-red-400 text-sm">Travado (não sobe)</div>
+              </div>
+
+              {/* 2. Custo por Mensagem */}
+              <div className="grid grid-cols-1 md:grid-cols-5 p-4 bg-[var(--color-aeg-blue)]/5 hover:bg-[var(--color-aeg-blue)]/10 transition-colors items-center">
+                <div className="font-bold text-[var(--color-aeg-blue)] flex items-center gap-2">
+                  <div className="w-6 h-6 bg-[var(--color-aeg-blue)]/20 text-[var(--color-aeg-blue)] rounded flex items-center justify-center text-xs">2</div>
+                  Custo p/ Mensagem
+                </div>
+                <div className="text-gray-300 text-sm md:col-span-2">Quanto custou cada cliente que mandou mensagem.</div>
+                <div className="text-green-400 text-sm font-medium">R$ 5 a R$ 25 (Popular)<br/>R$ 30 a R$ 80 (Premium)</div>
+                <div className="text-red-400 text-sm">Acima de R$ 30 (Pop.)<br/>Acima de R$ 100 (Prem.)</div>
+              </div>
+
+              {/* 3. Frequência */}
+              <div className="grid grid-cols-1 md:grid-cols-5 p-4 hover:bg-white/5 transition-colors items-center">
+                <div className="font-bold text-white flex items-center gap-2">
+                  <div className="w-6 h-6 bg-blue-500/20 text-blue-400 rounded flex items-center justify-center text-xs">3</div>
+                  Frequência
+                </div>
+                <div className="text-gray-400 text-sm md:col-span-2">Quantas vezes a mesma pessoa viu o anúncio.</div>
+                <div className="text-green-400 text-sm font-medium">1.5 a 4.0</div>
+                <div className="text-red-400 text-sm">Acima de 4 (Saturou)</div>
+              </div>
+
+              {/* 4. CTR */}
+              <div className="grid grid-cols-1 md:grid-cols-5 p-4 hover:bg-white/5 transition-colors items-center">
+                <div className="font-bold text-white flex items-center gap-2">
+                  <div className="w-6 h-6 bg-blue-500/20 text-blue-400 rounded flex items-center justify-center text-xs">4</div>
+                  CTR <span className="font-normal text-xs text-gray-500">(Taxa Clique)</span>
+                </div>
+                <div className="text-gray-400 text-sm md:col-span-2">De quem viu, quantos % clicou? O anúncio chama atenção?</div>
+                <div className="text-green-400 text-sm font-medium">Acima de 1% (Boa)<br/>Acima de 2% (Excel.)</div>
+                <div className="text-red-400 text-sm">Abaixo de 0.5% (Fraco)</div>
+              </div>
+
+              {/* 5. Valor Usado */}
+              <div className="grid grid-cols-1 md:grid-cols-5 p-4 hover:bg-white/5 transition-colors items-center">
+                <div className="font-bold text-white flex items-center gap-2">
+                  <div className="w-6 h-6 bg-blue-500/20 text-blue-400 rounded flex items-center justify-center text-xs">5</div>
+                  Valor Usado
+                </div>
+                <div className="text-gray-400 text-sm md:col-span-2">Quanto já gastou. Compara com seu orçamento diário/mensal.</div>
+                <div className="text-green-400 text-sm font-medium">Dentro do Orçamento</div>
+                <div className="text-red-400 text-sm">Gasto sem retorno</div>
+              </div>
+            </div>
+          </motion.div>
+          <div className="text-center mt-6">
+             <p className="text-gray-400 italic">"Anota essa tabela. Imprime. Cola na parede do escritório."</p>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* SEÇÃO 2: OS 3 AJUSTES */}
+      <section className="py-24 px-6 relative bg-white/5 border-t border-white/5">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={staggerContainer}
+          className="max-w-5xl mx-auto"
+        >
+          <div className="text-center mb-16">
+            <h2 className="font-heading text-4xl font-black uppercase mb-4 flex items-center justify-center gap-3">
+              <Settings className="w-10 h-10 text-[var(--color-aeg-blue)]" />
+              Os 3 Ajustes Mestres
+            </h2>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">Algo está fora da faixa boa. O que você faz? Domine esses 3 botões.</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <motion.div variants={fadeUp} className="bg-[var(--color-aeg-darker)] p-8 rounded-2xl border border-[var(--color-aeg-blue)]/30 relative">
+              <div className="w-14 h-14 bg-[var(--color-aeg-blue)]/20 rounded-full flex items-center justify-center mb-6">
+                <Images className="w-7 h-7 text-[var(--color-aeg-blue)]" />
+              </div>
+              <h3 className="font-heading text-2xl font-bold uppercase mb-4 text-white">1. Trocar o Criativo</h3>
+              <div className="space-y-4">
+                <div>
+                  <strong className="text-gray-300 block text-sm">Quando?</strong>
+                  <p className="text-gray-400 text-sm">CTR baixo (abaixo de 0.5%), Frequência alta (acima de 4), ou custo subindo.</p>
+                </div>
+                <div>
+                  <strong className="text-gray-300 block text-sm">Como?</strong>
+                  <p className="text-gray-400 text-sm">"Duplique" o anúncio e troque a foto/vídeo e o texto. <strong className="text-white">NUNCA deixe 1 anúncio só</strong>. Tenha 2 ou 3 rodando juntos para a Meta testar.</p>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div variants={fadeUp} className="bg-[var(--color-aeg-darker)] p-8 rounded-2xl border border-orange-500/30 relative">
+              <div className="w-14 h-14 bg-orange-500/20 rounded-full flex items-center justify-center mb-6">
+                <Users className="w-7 h-7 text-orange-400" />
+              </div>
+              <h3 className="font-heading text-2xl font-bold uppercase mb-4 text-white">2. Trocar o Público</h3>
+              <div className="space-y-4">
+                <div>
+                  <strong className="text-gray-300 block text-sm">Quando?</strong>
+                  <p className="text-gray-400 text-sm">Tá vindo lead totalmente desqualificado ou a frequência satura muito rápido (público pequeno).</p>
+                </div>
+                <div>
+                  <strong className="text-gray-300 block text-sm">Como?</strong>
+                  <p className="text-gray-400 text-sm">Crie um conjunto NOVO. Mexa na idade, raio de localização ou interesses. Rode em paralelo com o original para comparar.</p>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div variants={fadeUp} className="bg-[var(--color-aeg-darker)] p-8 rounded-2xl border border-green-500/30 relative">
+              <div className="w-14 h-14 bg-green-500/20 rounded-full flex items-center justify-center mb-6">
+                <TrendingUp className="w-7 h-7 text-green-400" />
+              </div>
+              <h3 className="font-heading text-2xl font-bold uppercase mb-4 text-white">3. Mexer no Orçamento</h3>
+              <div className="space-y-4">
+                <div>
+                  <strong className="text-gray-300 block text-sm">Quando?</strong>
+                  <p className="text-gray-400 text-sm">Campanha tá ROUBANDO a cena. Custo baixo, mensagens lotando, vendas saindo.</p>
+                </div>
+                <div>
+                  <strong className="text-gray-300 block text-sm">Como?</strong>
+                  <p className="text-gray-400 text-sm">Regra dos 20%. Aumente o orçamento no máximo 20% a cada 3 dias. Ou DUPLIQUE a campanha toda com orçamento maior.</p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          <motion.div variants={fadeUp} className="mt-12 bg-red-500/10 border border-red-500/30 p-6 rounded-xl flex items-center gap-4 max-w-3xl mx-auto">
+            <XCircle className="w-8 h-8 text-red-500 shrink-0" />
+            <p className="text-red-200">
+              <strong className="text-red-400 uppercase tracking-widest">A Regra Férrea:</strong> NUNCA mexa em 2 coisas ao mesmo tempo. Se você trocar a foto E o público, e a campanha melhorar, qual dos dois resolveu? Você nunca vai saber. Disciplina paga.
+            </p>
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* SEÇÃO 3: ESCALADA */}
+      <section className="py-24 px-6 relative">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={staggerContainer}
+          className="max-w-5xl mx-auto"
+        >
+          <div className="text-center mb-16">
+            <h2 className="font-heading text-3xl font-black uppercase mb-4 flex items-center justify-center gap-3">
+              <BarChart3 className="w-8 h-8 text-[var(--color-aeg-blue)]" />
+              Como Pensar em Escala
+            </h2>
+            <p className="text-gray-400 text-lg">Aumentar o resultado SEM perder qualidade.</p>
+          </div>
+
+          <div className="flex flex-col md:flex-row rounded-2xl overflow-hidden border border-white/10 mb-12">
+            {/* Horizontal */}
+            <motion.div variants={fadeUp} className="md:w-1/2 p-8 md:p-12 bg-black/40 border-b md:border-b-0 md:border-r border-white/10 relative">
+              <Layers className="w-12 h-12 text-[var(--color-aeg-blue)] mb-6 opacity-80" />
+              <h3 className="font-heading text-3xl font-black uppercase mb-4 text-white">Escala Horizontal</h3>
+              <p className="text-gray-300 font-medium mb-6">Criar MAIS do que está funcionando.</p>
+              
+              <div className="space-y-4">
+                <p className="text-gray-400 text-sm leading-relaxed">Você rodou Onix por 30 dias deu muito bom. Você não precisa forçar o Onix até o osso.</p>
+                <p className="text-gray-400 text-sm leading-relaxed">Você <strong className="text-white">monta uma campanha igual para o HB20. Outra para Civic. Outra para Strada.</strong> Multiplica os braços operacionais.</p>
+                <div className="bg-[var(--color-aeg-blue)]/10 text-[var(--color-aeg-blue)] font-bold text-xs p-3 rounded uppercase text-center mt-4 border border-[var(--color-aeg-blue)]/20">
+                  Ideal para Começar
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Vertical */}
+            <motion.div variants={fadeUp} className="md:w-1/2 p-8 md:p-12 bg-white/5 relative">
+              <ArrowUpRight className="w-12 h-12 text-green-500 mb-6 opacity-80" />
+              <h3 className="font-heading text-3xl font-black uppercase mb-4 text-white">Escala Vertical</h3>
+              <p className="text-gray-300 font-medium mb-6">Aumentar a VERBA no que já está lá.</p>
+              
+              <div className="space-y-4">
+                <p className="text-gray-400 text-sm leading-relaxed">Sair de R$ 50 por dia para R$ 200 por dia numa mesma campanha.</p>
+                <p className="text-gray-400 text-sm leading-relaxed">Monitora se o Custo por Mensagem sobe muito. Se mantiver, você achou uma mina de ouro. Se o custo triplicar, volta pra trás.</p>
+                <div className="bg-white/5 text-gray-400 font-bold text-xs p-3 rounded uppercase text-center mt-4 border border-white/10">
+                  Para Quem Já Domina
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          <motion.div variants={fadeUp} className="bg-gradient-to-r from-[var(--color-aeg-blue)]/20 to-purple-500/10 border border-[var(--color-aeg-blue)]/30 p-8 rounded-2xl text-center shadow-[0_0_40px_rgba(10,60,218,0.1)]">
+            <h4 className="font-heading text-xl font-bold uppercase text-white mb-2">Tráfego é Aposta Informada</h4>
+            <p className="text-gray-300">
+              Você nunca acerta 100%. Se 7 em cada 10 campanhas derem lucro, você está EXCELENTE. Aceite que vai gastar 200 reais numa campanha que não vai dar em nada. É o custo de comprar dados e descobrir o que o mercado NÃO quer.
+            </p>
+          </motion.div>
+
+        </motion.div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="py-20 px-6 relative overflow-hidden bg-[var(--color-aeg-darker)] border-t border-white/5">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeUp}
+          className="max-w-3xl mx-auto text-center"
+        >
+          <div className="mb-6">
+            <Camera className="w-16 h-16 text-[var(--color-aeg-blue)] mx-auto" />
+          </div>
+          
+          <h2 className="font-heading text-3xl font-bold mb-6">
+            Tire um Print
+          </h2>
+          
+          <p className="text-gray-400 mb-8 text-lg">
+            Abra o seu Gerenciador de Anúncios agora e tire um print das suas 5 colunas. Salve. Compare daqui a 7 dias. Vai ser o seu termômetro.
+          </p>
+
+          <div className="p-6 bg-[var(--color-aeg-blue)]/10 rounded-xl border border-[var(--color-aeg-blue)]/30 uppercase tracking-widest text-sm font-bold text-[var(--color-aeg-blue)] shadow-[0_0_30px_rgba(10,60,218,0.1)] mb-10">
+            Próxima aula: Aplicar tudo isso ao vivo (Prática de Otimização).
+          </div>
+
+          <button onClick={onNext} className="w-full sm:w-auto flex items-center justify-center gap-3 bg-[var(--color-aeg-blue)] hover:bg-blue-800 text-white font-bold py-5 px-10 rounded-xl transition-all text-xl mx-auto shadow-[0_10px_30px_rgba(10,60,218,0.3)] hover:-translate-y-1 cursor-pointer">
+            <PlayCircle className="w-6 h-6" />
+            Ir para Aula 12
+          </button>
+        </motion.div>
+      </footer>
+    </motion.div>
+  );
+}
+
+function Aula12({ onNext, key }: { onNext?: () => void; key?: string }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -20 }}
+      transition={{ duration: 0.3 }}
+    >
+      {/* HEADER / ABERTURA */}
+      <header className="relative min-h-[70vh] flex flex-col justify-center items-center text-center px-6 pt-20 pb-16 border-b border-white/5">
+        <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-[var(--color-aeg-blue)] opacity-10 blur-[100px] rounded-full pointer-events-none"></div>
+        
+        <motion.div 
+          initial="hidden" 
+          animate="visible" 
+          variants={fadeUp}
+          className="max-w-4xl mx-auto flex flex-col items-center"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-sm">
+            <PlayCircle className="w-4 h-4 text-[var(--color-aeg-blue)]" />
+            <span className="text-sm font-semibold tracking-wider uppercase text-gray-300">Aula 12 • Prática</span>
+          </div>
+          
+          <h1 className="font-heading text-4xl md:text-6xl font-black uppercase leading-tight tracking-tight mb-6">
+            Otimizando e Escalando <br/>
+            <span className="text-[var(--color-aeg-blue)]">Na Prática</span>
+          </h1>
+          
+          <p className="text-xl text-gray-400 max-w-2xl font-medium mb-8">
+            Vamos olhar uma campanha real rodando há 7 dias e tomar 3 decisões juntos: trocar criativo, escalar e testar novo público.
+          </p>
+        </motion.div>
+      </header>
+
+      {/* SEÇÃO 1: LENDO A CAMPANHA */}
+      <section className="py-20 px-6 relative">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={staggerContainer}
+          className="max-w-5xl mx-auto"
+        >
+          <div className="text-center mb-16">
+            <h2 className="font-heading text-3xl font-black uppercase mb-4 flex items-center justify-center gap-3">
+              <BarChart3 className="w-8 h-8 text-[var(--color-aeg-blue)]" />
+              Lendo a Campanha
+            </h2>
+            <p className="text-gray-400 text-lg">Campanha "Onix Plus 2020 - Mensagens", rodando há 7 dias.</p>
+          </div>
+
+          <div className="bg-[var(--color-aeg-darker)] rounded-2xl border border-white/10 overflow-hidden shadow-2xl mb-12">
+            <div className="border-b border-white/5 bg-white/5 p-4 flex items-center gap-3">
+              <div className="w-3 h-3 rounded-full bg-red-500"></div>
+              <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+              <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              <span className="text-xs text-gray-500 font-mono ml-4">Gerenciador de Anúncios - Desempenho 7 Dias</span>
+            </div>
+            
+            <div className="p-8">
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                <div className="bg-white/5 p-4 rounded-xl border border-white/10 flex flex-col">
+                  <span className="text-gray-500 text-xs font-bold uppercase mb-1">Valor Usado</span>
+                  <span className="text-xl font-bold text-white">R$ 350,00</span>
+                </div>
+                <div className="bg-white/5 p-4 rounded-xl border border-white/10 flex flex-col">
+                  <span className="text-gray-500 text-xs font-bold uppercase mb-1">Alcance</span>
+                  <span className="text-xl font-bold text-white">12.400</span>
+                </div>
+                <div className="bg-[var(--color-aeg-blue)]/20 p-4 rounded-xl border border-[var(--color-aeg-blue)]/40 flex flex-col shadow-[0_0_15px_rgba(10,60,218,0.1)]">
+                  <span className="text-[var(--color-aeg-blue)] text-xs font-bold uppercase mb-1">Mensagens</span>
+                  <span className="text-2xl font-black text-white">18</span>
+                </div>
+                <div className="bg-green-500/10 p-4 rounded-xl border border-green-500/30 flex flex-col">
+                  <span className="text-green-500 text-xs font-bold uppercase mb-1">Custo / Mensagem</span>
+                  <span className="text-xl font-bold text-white">R$ 19,40</span>
+                </div>
+                <div className="bg-white/5 p-4 rounded-xl border border-white/10 flex flex-col">
+                  <span className="text-gray-500 text-xs font-bold uppercase mb-1">Frequência</span>
+                  <span className="text-xl font-bold text-white">2.1</span>
+                </div>
+              </div>
+              
+              <div className="mt-8 bg-[var(--color-aeg-darker)] p-6 rounded-xl border border-white/5 flex gap-4">
+                <CheckCircle2 className="w-8 h-8 text-green-500 shrink-0" />
+                <div>
+                  <h4 className="text-white font-bold mb-1">Diagnóstico Prático</h4>
+                  <p className="text-sm text-gray-400">Alcance bom, mensagens chegando, custo dentro da faixa ideal (R$ 5 a R$ 25), frequência baixa e CTR acima de 1%. <strong>Conclusão: Tá indo muito bem. É campanha para OTIMIZAR e ESCALAR.</strong></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* SEÇÃO 2: AS 3 DECISÕES */}
+      <section className="py-24 px-6 relative bg-white/5 border-t border-white/5">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={staggerContainer}
+          className="max-w-5xl mx-auto"
+        >
+          <div className="text-center mb-16">
+            <h2 className="font-heading text-4xl font-black uppercase mb-4 flex items-center justify-center gap-3">
+              <Settings className="w-10 h-10 text-[var(--color-aeg-blue)]" />
+              As 3 Decisões
+            </h2>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">Com essa campanha em mãos, o que faremos agora?</p>
+          </div>
+
+          <div className="space-y-12">
+            {/* Decisão 1 */}
+            <motion.div variants={fadeUp} className="bg-[var(--color-aeg-darker)] rounded-2xl border border-[var(--color-aeg-blue)]/30 overflow-hidden flex flex-col md:flex-row relative">
+              <div className="absolute top-0 left-0 w-2 h-full bg-[var(--color-aeg-blue)]"></div>
+              <div className="p-8 md:p-10 md:w-2/3 border-b md:border-b-0 md:border-r border-white/10">
+                <h3 className="font-heading text-2xl font-bold uppercase mb-6 text-white flex items-center gap-3">
+                  <Images className="w-6 h-6 text-[var(--color-aeg-blue)]" />
+                  1. Adicionar Criativo Novo
+                </h3>
+                <p className="text-gray-400 mb-6 leading-relaxed">
+                  A frequência está em 2.1. Em breve o público vai cansar daquela foto da frente do carro. 
+                  Vamos <strong>Duplicar o anúncio (dentro do mesmo conjunto)</strong> e mudar a foto para o interior do carro.
+                  No texto, trocamos o gancho por: "Sabe aquele carro que o concessionário desvaloriza? Aqui a gente avalia HONESTO".
+                </p>
+                <div className="bg-black/30 p-4 rounded-xl text-sm border border-[var(--color-aeg-blue)]/20">
+                  <strong className="text-[var(--color-aeg-blue)]">Efeito:</strong> Dividimos o orçamento entre as 2 versões. A Meta testa as duas em paralelo e entrega a que tiver melhor aceitação.
+                </div>
+              </div>
+              <div className="p-8 md:p-10 md:w-1/3 flex items-center justify-center bg-white/5">
+                <div className="text-center">
+                  <CopyPlus className="w-16 h-16 text-gray-500 mx-auto mb-4 opacity-50" />
+                  <p className="font-bold text-gray-300">Duplicar Anúncio<br/><span className="text-sm font-normal text-gray-500 mt-1 block">Na mesma campanha</span></p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Decisão 2 */}
+            <motion.div variants={fadeUp} className="bg-[var(--color-aeg-darker)] rounded-2xl border border-green-500/30 overflow-hidden flex flex-col md:flex-row relative shadow-[0_0_30px_rgba(34,197,94,0.05)]">
+              <div className="absolute top-0 left-0 w-2 h-full bg-green-500"></div>
+              <div className="p-8 md:p-10 md:w-2/3 border-b md:border-b-0 md:border-r border-white/10">
+                <h3 className="font-heading text-2xl font-bold uppercase mb-6 text-white flex items-center gap-3">
+                  <TrendingUp className="w-6 h-6 text-green-400" />
+                  2. Duplicar p/ Escalar
+                </h3>
+                <p className="text-gray-400 mb-6 leading-relaxed">
+                  A máquina está azeitada. Queremos mais! Lembra da <strong>Regra do 20% ou Duplicar?</strong> 
+                  Voltamos na visão de campanhas, clicamos na "Onix Plus 2020", <strong>Duplicamos a Campanha inteira</strong>.
+                  A original fica com R$ 50. Na nova ("v2 Escala"), botamos R$ 80/dia. Não mexemos em mais nada.
+                </p>
+                <div className="bg-green-500/5 p-4 rounded-xl text-sm border border-green-500/20">
+                  <strong className="text-green-400">Efeito:</strong> Agora temos 2 idênticas (50 e 80) gastando R$ 130/dia com segurança. Daqui 5 dias olhamos o custo.
+                </div>
+              </div>
+              <div className="p-8 md:p-10 md:w-1/3 flex items-center justify-center bg-white/5">
+                <div className="text-center">
+                  <ArrowUpRight className="w-16 h-16 text-green-500/60 mx-auto mb-4" />
+                  <p className="font-bold text-gray-300">Duplicar Campanha<br/><span className="text-sm font-normal text-green-400/80 mt-1 block">+ Orçamento Novo</span></p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Decisão 3 */}
+            <motion.div variants={fadeUp} className="bg-[var(--color-aeg-darker)] rounded-2xl border border-orange-500/30 overflow-hidden flex flex-col md:flex-row relative">
+              <div className="absolute top-0 left-0 w-2 h-full bg-orange-500"></div>
+              <div className="p-8 md:p-10 md:w-2/3 border-b md:border-b-0 md:border-r border-white/10">
+                <h3 className="font-heading text-2xl font-bold uppercase mb-6 text-white flex items-center gap-3">
+                  <Users className="w-6 h-6 text-orange-400" />
+                  3. Testar Público Novo
+                </h3>
+                <p className="text-gray-400 mb-6 leading-relaxed">
+                  Para testar águas novas sem arruinar o que já funciona: vamos na campanha original e criamos um <strong>Conjunto de Anúncios Novo</strong> ("Adset") dentro dela!
+                  Mudamos o raio: em vez de 30km, botamos 50km incluindo a cidade vizinha. Puxamos os criativos v1 e v2 para dentro dela. Orçamento de R$ 50.
+                </p>
+                <div className="bg-orange-500/5 p-4 rounded-xl text-sm border border-orange-500/20">
+                  <strong className="text-orange-400">Efeito:</strong> Expandimos sem perder o controle. Aumentamos o investimento total do dia, mas testando geografias diferentes.
+                </div>
+              </div>
+              <div className="p-8 md:p-10 md:w-1/3 flex items-center justify-center bg-white/5">
+                <div className="text-center">
+                  <Target className="w-16 h-16 text-orange-400/50 mx-auto mb-4" />
+                  <p className="font-bold text-gray-300">Novo Conjunto<br/><span className="text-sm font-normal text-gray-500 mt-1 block">Risco zero</span></p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="py-20 px-6 relative overflow-hidden bg-[var(--color-aeg-darker)] border-t border-white/5">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeUp}
+          className="max-w-3xl mx-auto text-center"
+        >
+          <div className="mb-6">
+            <TrendingUp className="w-16 h-16 text-green-500 mx-auto" />
+          </div>
+          
+          <h2 className="font-heading text-3xl font-bold mb-6">
+            Inteligência no Investimento
+          </h2>
+          
+          <p className="text-gray-400 mb-8 text-lg">
+            Isso é o que separa loja que cresce de loja que estagna. Não é só gastar mais, é gastar com base em dados. Agora vá e aplique na sua campanha!
+          </p>
+
+          <div className="p-6 bg-[var(--color-aeg-blue)]/10 rounded-xl border border-[var(--color-aeg-blue)]/30 uppercase tracking-widest text-sm font-bold text-[var(--color-aeg-blue)] shadow-[0_0_30px_rgba(10,60,218,0.1)] mb-10">
+            Próxima aula: O PROJETO PRÁTICO FINAL.
+          </div>
+
+          <button onClick={onNext} className="w-full sm:w-auto flex items-center justify-center gap-3 bg-[var(--color-aeg-blue)] hover:bg-blue-800 text-white font-bold py-5 px-10 rounded-xl transition-all text-xl mx-auto shadow-[0_10px_30px_rgba(10,60,218,0.3)] hover:-translate-y-1 cursor-pointer">
+            <PlayCircle className="w-6 h-6" />
+            Ir para Aula 13
+          </button>
+        </motion.div>
+      </footer>
+    </motion.div>
+  );
+}
+
+function Aula13({ key }: { key?: string }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -20 }}
+      transition={{ duration: 0.3 }}
+    >
+      {/* HEADER / ABERTURA */}
+      <header className="relative min-h-[70vh] flex flex-col justify-center items-center text-center px-6 pt-20 pb-16 border-b border-white/5">
+        <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-[var(--color-aeg-blue)] opacity-10 blur-[100px] rounded-full pointer-events-none"></div>
+        
+        <motion.div 
+          initial="hidden" 
+          animate="visible" 
+          variants={fadeUp}
+          className="max-w-4xl mx-auto flex flex-col items-center"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-sm">
+            <ClipboardCheck className="w-4 h-4 text-[var(--color-aeg-blue)]" />
+            <span className="text-sm font-semibold tracking-wider uppercase text-gray-300">Aula 13 • Projeto Prático</span>
+          </div>
+          
+          <h1 className="font-heading text-4xl md:text-6xl font-black uppercase leading-tight tracking-tight mb-6">
+            Criando e Testando uma <br/>
+            <span className="text-[var(--color-aeg-blue)]">Campanha do ZERO</span>
+          </h1>
+          
+          <p className="text-xl text-gray-400 max-w-2xl font-medium mb-8">
+            Vamos consolidar tudo aplicando um checklist prático. Pega papel e caneta, hora de você executar cada passo comigo.
+          </p>
+        </motion.div>
+      </header>
+
+      {/* SEÇÃO 1: O BRIEFING */}
+      <section className="py-20 px-6 relative">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={staggerContainer}
+          className="max-w-5xl mx-auto"
+        >
+          <div className="text-center mb-16">
+            <h2 className="font-heading text-3xl font-black uppercase mb-4 flex items-center justify-center gap-3">
+              <ListTodo className="w-8 h-8 text-[var(--color-aeg-blue)]" />
+              O Briefing Antes do Gerenciador
+            </h2>
+            <p className="text-gray-400 text-lg">Antes de tocar na Meta, responda no papel. Sem isso, você sobe campanha que não vende.</p>
+          </div>
+
+          <div className="bg-[var(--color-aeg-darker)] rounded-2xl border border-white/10 overflow-hidden shadow-2xl">
+            <div className="border-b border-white/5 bg-white/5 p-4 py-6">
+              <h3 className="font-heading text-xl font-bold uppercase text-white flex items-center justify-center gap-2">
+                <CheckSquare className="w-6 h-6 text-[var(--color-aeg-blue)]" />
+                Checklist Obrigatório
+              </h3>
+            </div>
+            <div className="divide-y divide-white/5">
+              <motion.div variants={fadeUp} className="p-8 hover:bg-white/5 transition-colors grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-bold text-[var(--color-aeg-blue)] uppercase text-sm mb-2 flex items-center gap-2">[1] Qual o Carro?</h4>
+                  <p className="text-gray-300 text-sm">Marca, modelo, ano, km, valor à vista, parcelas, diferenciais.</p>
+                </div>
+                <div className="bg-black/30 p-4 rounded-xl border border-white/5">
+                  <span className="text-xs text-gray-500 uppercase font-bold block mb-1">Exemplo:</span>
+                  <p className="text-sm text-gray-400">"Hilux SR 2018, 4x4, diesel, 89.000 km, R$ 168.000 (ou parc. R$ 3.200), manual, revisada."</p>
+                </div>
+              </motion.div>
+
+              <motion.div variants={fadeUp} className="p-8 hover:bg-white/5 transition-colors grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-bold text-[var(--color-aeg-blue)] uppercase text-sm mb-2 flex items-center gap-2">[2] Quem é o Cliente?</h4>
+                  <p className="text-gray-300 text-sm">Idade, sexo provável, faixa de renda, perfil (trabalho, família?)</p>
+                </div>
+                <div className="bg-black/30 p-4 rounded-xl border border-white/5">
+                  <span className="text-xs text-gray-500 uppercase font-bold block mb-1">Exemplo:</span>
+                  <p className="text-sm text-gray-400">"Homem, 35 a 60 anos, classe média/alta, uso rural ou fora-de-estrada, interior."</p>
+                </div>
+              </motion.div>
+
+              <motion.div variants={fadeUp} className="p-8 hover:bg-white/5 transition-colors grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-bold text-[var(--color-aeg-blue)] uppercase text-sm mb-2 flex items-center gap-2">[3] Qual o Objetivo?</h4>
+                  <p className="text-gray-300 text-sm">Sempre escolha <strong className="text-white">Mensagens</strong> para começar.</p>
+                </div>
+                <div className="bg-[var(--color-aeg-blue)]/10 p-4 rounded-xl border border-[var(--color-aeg-blue)]/20 flex items-center justify-center">
+                  <div className="text-[var(--color-aeg-blue)] font-bold uppercase tracking-wider">MENSAGENS NO WHATSAPP</div>
+                </div>
+              </motion.div>
+
+              <motion.div variants={fadeUp} className="p-8 hover:bg-white/5 transition-colors grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-bold text-[var(--color-aeg-blue)] uppercase text-sm mb-2 flex items-center gap-2">[4] Qual o Orçamento?</h4>
+                  <p className="text-gray-300 text-sm">Quanto por dia e por quantos dias.</p>
+                </div>
+                <div className="bg-black/30 p-4 rounded-xl border border-white/5">
+                  <span className="text-xs text-gray-500 uppercase font-bold block mb-1">Exemplo:</span>
+                  <p className="text-sm text-gray-400">"R$ 50/dia por 14 dias (Total de R$ 700)."</p>
+                </div>
+              </motion.div>
+
+              <motion.div variants={fadeUp} className="p-8 hover:bg-white/5 transition-colors grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-bold text-[var(--color-aeg-blue)] uppercase text-sm mb-2 flex items-center gap-2">[5] O Gancho/Oferta</h4>
+                  <p className="text-gray-300 text-sm">Tenha isso escrito ANTES de abrir a ferramenta. Não improvise lá dentro.</p>
+                </div>
+                <div className="bg-black/30 p-4 rounded-xl border border-white/5 flex items-center">
+                  <p className="text-sm text-gray-400 italic">"Tá precisando de uma 4x4 SÉRIA pra trabalho?"</p>
+                </div>
+              </motion.div>
+
+              <motion.div variants={fadeUp} className="p-8 hover:bg-white/5 transition-colors grid md:grid-cols-2 gap-6 items-center">
+                <div>
+                  <h4 className="font-bold text-[var(--color-aeg-blue)] uppercase text-sm mb-2 flex items-center gap-2">[6] Quem Vai Atender?</h4>
+                  <p className="text-gray-300 text-sm">Lembre do acordo com o vendedor. <strong className="text-white">Em até 30min!</strong></p>
+                </div>
+                <div className="bg-red-500/10 p-4 rounded-xl border border-red-500/20 text-red-200 text-sm">
+                  Se demorar 2h pra responder o WhatsApp, jogou dinheiro fora. O cliente já cotou com outras 5 lojas.
+                </div>
+              </motion.div>
+            </div>
+          </div>
+          
+          <div className="mt-8 text-center bg-white/5 p-6 rounded-2xl border border-white/10">
+            <p className="text-gray-300">Pausa agora. Faz isso para o carro que VOCÊ quer anunciar. Custa 1 hora? 2 horas? Não importa. Despausa quando acabar.</p>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* SEÇÃO 2: GERENCIADOR */}
+      <section className="py-24 px-6 relative bg-white/5 border-t border-white/5">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={staggerContainer}
+          className="max-w-5xl mx-auto"
+        >
+          <div className="text-center mb-16">
+            <h2 className="font-heading text-4xl font-black uppercase mb-4 flex items-center justify-center gap-3">
+              <PlaySquare className="w-10 h-10 text-[var(--color-aeg-blue)]" />
+              Executando no Gerenciador
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <motion.div variants={fadeUp} className="bg-[var(--color-aeg-darker)] p-8 rounded-2xl border border-white/10 relative shadow-[0_0_30px_rgba(255,255,255,0.02)]">
+              <div className="absolute top-4 right-4 bg-white/10 px-3 py-1 rounded text-xs font-bold uppercase text-gray-400">Passo 1: Campanha</div>
+              <h3 className="font-heading text-xl font-bold uppercase text-white mb-6 mt-4">Campanha</h3>
+              <ul className="space-y-4 text-gray-400 text-sm">
+                <li className="flex gap-2">
+                  <div className="w-2 h-2 rounded-full bg-[var(--color-aeg-blue)] mt-1.5 shrink-0"></div>
+                  <div><strong>Objetivo:</strong> Engajamento → Mensagens no WhatsApp</div>
+                </li>
+                <li className="flex gap-2">
+                  <div className="w-2 h-2 rounded-full bg-[var(--color-aeg-blue)] mt-1.5 shrink-0"></div>
+                  <div><strong>Nome:</strong> <span className="text-gray-300">"Hilux SR 2018 - Mensagens - Out/2026"</span> (Padrão de nomenclatura!)</div>
+                </li>
+              </ul>
+            </motion.div>
+            
+            <motion.div variants={fadeUp} className="bg-[var(--color-aeg-darker)] p-8 rounded-2xl border border-[var(--color-aeg-blue)]/30 relative shadow-[0_0_30px_rgba(10,60,218,0.05)]">
+              <div className="absolute top-4 right-4 bg-[var(--color-aeg-blue)]/20 px-3 py-1 rounded text-xs font-bold uppercase text-[var(--color-aeg-blue)]">Passo 2: Conjunto</div>
+              <h3 className="font-heading text-xl font-bold uppercase text-white mb-6 mt-4">Conjunto de Anúncios</h3>
+              <ul className="space-y-4 text-gray-400 text-sm mb-6">
+                <li className="flex gap-2">
+                  <div className="w-2 h-2 rounded-full bg-[var(--color-aeg-blue)] mt-1.5 shrink-0"></div>
+                  <div><strong>Nome:</strong> <span className="text-gray-300">"Hilux - Cid+50km - 35/60 Anos - Homens"</span></div>
+                </li>
+                <li className="flex gap-2">
+                  <div className="w-2 h-2 rounded-full bg-[var(--color-aeg-blue)] mt-1.5 shrink-0"></div>
+                  <div><strong>Orçamento Diário:</strong> R$ 50,00 contínuo</div>
+                </li>
+              </ul>
+              <div className="bg-[var(--color-aeg-blue)]/10 p-4 rounded-xl border border-[var(--color-aeg-blue)]/20 text-blue-200/90 text-sm">
+                <strong>Público Vantagem+:</strong>
+                <br/>• Localização: Sua cidade + 50km
+                <br/>• Idade: 35 a 60 anos
+                <br/>• Gênero: Homens (pra Hilux faz sentido fechar)
+                <br/>• Sem detalhamento (interesses). Deixa aberto!
+              </div>
+            </motion.div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* SEÇÃO 3: O ANÚNCIO (CRIATIVO) */}
+      <section className="py-24 px-6 relative">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={staggerContainer}
+          className="max-w-5xl mx-auto"
+        >
+          <div className="text-center mb-16">
+            <h2 className="font-heading text-3xl font-black uppercase mb-4 flex items-center justify-center gap-3">
+              <Images className="w-8 h-8 text-[var(--color-aeg-blue)]" />
+              Subindo o Anúncio
+            </h2>
+            <p className="text-gray-400 text-lg">"Hilux SR - Carrossel 4 fotos - Texto Trabalho v1"</p>
+          </div>
+
+          <div className="bg-[var(--color-aeg-darker)] rounded-2xl border border-white/10 p-8 shadow-2xl">
+            <div className="grid md:grid-cols-2 gap-12">
+              <motion.div variants={fadeUp}>
+                <h3 className="font-bold text-white uppercase mb-4 text-sm tracking-wider text-gray-500">Configuração</h3>
+                <ul className="space-y-4 text-gray-300 text-sm">
+                  <li><strong>Identidade:</strong> Sua Página + Instagram</li>
+                  <li><strong>Formato:</strong> Carrossel (Fotos: frente diagonal, lateral, interior, motor).</li>
+                  <li><strong>Título (igual nos 4 cartões):</strong> <br/><span className="text-white font-mono bg-white/10 px-2 py-1 rounded inline-block mt-1">Hilux SR 4x4 - R$ 168.000</span></li>
+                  <li><strong>Chamada para Ação:</strong> Enviar mensagem</li>
+                  <li className="mt-4 pt-4 border-t border-white/10">
+                    <strong>Msg Canned (Automática) do WhatsApp:</strong>
+                    <div className="bg-green-500/10 p-3 rounded-lg border border-green-500/20 text-green-300 italic mt-2">
+                      "Olá! Aqui é o Mário. Vi seu interesse na Hilux. Tá procurando pra trabalho ou pra lazer? Tem carro pra avaliar na troca?"
+                    </div>
+                  </li>
+                </ul>
+              </motion.div>
+              
+              <motion.div variants={fadeUp} className="bg-black/30 p-6 rounded-xl border border-white/5 font-mono text-sm leading-relaxed overflow-hidden">
+                <span className="text-gray-500 font-bold uppercase tracking-widest text-xs block mb-4 border-b border-white/10 pb-2">Texto Principal (Copy)</span>
+                <p className="text-gray-300 mb-4">
+                  Tá precisando de uma 4x4 SÉRIA pra trabalho ou pra estrada de chão?
+                </p>
+                <p className="text-gray-400 mb-4">
+                  Essa Hilux SR 2018 tá pronta:<br/>
+                  - 4x4 diesel<br/>
+                  - 89.000 km<br/>
+                  - Manual e chave reserva<br/>
+                  - Revisada na concessionária<br/>
+                  - Pneus quase novos
+                </p>
+                <p className="text-white font-bold mb-4">
+                  R$ 168.000 à vista, ou parcelas a partir de R$ 3.200. Avalio o seu carro na troca, sem enrolação.
+                </p>
+                <p className="text-gray-300 mb-4">
+                  Aqui no Auto Show Multimarcas, mais de 10 anos de tradição, mais de 800 caminhonetes vendidas no agreste.
+                </p>
+                <p className="text-[var(--color-aeg-blue)] font-bold">
+                  Manda 'Hilux' aqui no WhatsApp e te mando o vídeo dela andando, mais detalhes e a melhor proposta da semana.
+                </p>
+              </motion.div>
+            </div>
+            
+            <div className="mt-8 pt-8 border-t border-white/10 text-center">
+              <span className="bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-8 rounded cursor-pointer uppercase tracking-widest transition-colors inline-block text-sm">
+                Publicar Campanha
+              </span>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* SEÇÃO 4: CRONOGRAMA 7 DIAS */}
+      <section className="py-24 px-6 relative bg-white/5 border-t border-white/5">
+        <div className="max-w-4xl mx-auto">
+          <motion.div 
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}
+            className="text-center mb-16"
+          >
+            <h2 className="font-heading text-3xl font-black uppercase mb-4 flex items-center justify-center gap-3">
+              <Timer className="w-8 h-8 text-[var(--color-aeg-blue)]" />
+              Os Seus Próximos 7 Dias
+            </h2>
+            <p className="text-gray-400 text-lg">A rotina de monitoramento de quem não queima dinheiro.</p>
+          </motion.div>
+
+          <div className="space-y-6">
+            <motion.div variants={fadeUp} className="bg-[var(--color-aeg-darker)] p-6 rounded-2xl border border-white/10 flex items-center md:items-start gap-6">
+              <div className="w-16 h-16 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center font-black text-2xl shrink-0">1-2</div>
+              <div>
+                <h4 className="text-white font-bold text-lg mb-2">Olha de longe</h4>
+                <p className="text-gray-400 text-sm">NÃO MEXE! Meta está entregando. Apenas anote se a campanha gerou alguma mensagem ou não.</p>
+              </div>
+            </motion.div>
+            <motion.div variants={fadeUp} className="bg-[var(--color-aeg-darker)] p-6 rounded-2xl border border-white/10 flex items-center md:items-start gap-6">
+              <div className="w-16 h-16 rounded-full bg-yellow-500/20 text-yellow-400 flex items-center justify-center font-black text-2xl shrink-0">3-4</div>
+              <div>
+                <h4 className="text-white font-bold text-lg mb-2 text-yellow-300">Hora do Termômetro</h4>
+                <p className="text-gray-400 text-sm">Abre as 5 métricas que a gente configurou. Tira foto da tabela ou print da tela para ter histórico de comparação.</p>
+              </div>
+            </motion.div>
+            <motion.div variants={fadeUp} className="bg-[var(--color-aeg-darker)] p-6 rounded-2xl border border-[var(--color-aeg-blue)]/30 flex items-center md:items-start gap-6 shadow-[0_0_20px_rgba(10,60,218,0.1)]">
+              <div className="w-16 h-16 rounded-full bg-[var(--color-aeg-blue)]/20 text-[var(--color-aeg-blue)] flex items-center justify-center font-black text-2xl shrink-0">5</div>
+              <div>
+                <h4 className="text-[var(--color-aeg-blue)] font-bold text-lg mb-2">Qualifique o Lead</h4>
+                <p className="text-gray-300 text-sm">Mensagens chegaram? Analise-as. O cara perguntou se faz financiamento 100%? Veio pra comprar ou só pra curiar? Alguém agendou visita?</p>
+              </div>
+            </motion.div>
+            <motion.div variants={fadeUp} className="bg-[var(--color-aeg-darker)] p-6 rounded-2xl border border-green-500/30 flex items-center md:items-start gap-6 shadow-[0_0_20px_rgba(34,197,94,0.1)]">
+              <div className="w-16 h-16 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center font-black text-2xl shrink-0">7</div>
+              <div>
+                <h4 className="text-green-400 font-bold text-lg mb-2">A Grande Decisão</h4>
+                <p className="text-gray-300 text-sm mb-4">Leitura completa. Qual das 3 decisões? <br/>1) Está top? Duplica e escala. <br/>2) Está ruim? Analisa as métricas e troca o criativo (foto/copy). <br/>3) Público saturado/falso? Novo conjunto com público diferente.</p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="py-20 px-6 relative overflow-hidden bg-[var(--color-aeg-darker)] border-t border-white/5">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeUp}
+          className="max-w-3xl mx-auto text-center"
+        >
+          <div className="mb-6">
+            <ClipboardCheck className="w-16 h-16 text-[var(--color-aeg-blue)] mx-auto" />
+          </div>
+          
+          <h2 className="font-heading text-3xl font-bold mb-6">
+            Você subiu de nível.
+          </h2>
+          
+          <p className="text-gray-400 mb-8 text-lg">
+            Se você fez essa campanha passo a passo comigo, você é uma loja diferente de ontem. Agora a venda não depende só da fachada da sua loja, depende da sua gestão!
+          </p>
+
+          <div className="p-6 bg-[var(--color-aeg-blue)]/10 rounded-xl border border-[var(--color-aeg-blue)]/30 uppercase tracking-widest text-sm font-bold text-[var(--color-aeg-blue)] shadow-[0_0_30px_rgba(10,60,218,0.1)] mb-10">
+            Próxima e última aula: O Oráculo (a nossa carta na manga pra você gerar anúncios mágicos).
           </div>
         </motion.div>
       </footer>
@@ -2310,7 +3177,7 @@ function Aula10({ key }: { key?: string }) {
 }
 
 export default function App() {
-  const [currentTab, setCurrentTab] = useState<'aula01' | 'aula02' | 'aula03' | 'aula04' | 'aula05' | 'aula06' | 'aula07' | 'aula08' | 'aula09' | 'aula10'>('aula01');
+  const [currentTab, setCurrentTab] = useState<'aula01' | 'aula02' | 'aula03' | 'aula04' | 'aula05' | 'aula06' | 'aula07' | 'aula08' | 'aula09' | 'aula10' | 'aula11' | 'aula12' | 'aula13'>('aula01');
 
   // Rola para o topo sempre que a aba mudar
   useEffect(() => {
@@ -2406,6 +3273,27 @@ export default function App() {
               {currentTab === 'aula09' && <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>}
               Aula 10
             </button>
+            <button 
+              onClick={() => setCurrentTab('aula11')}
+              className={`px-6 py-2 rounded-md font-bold text-sm tracking-wide uppercase transition-all flex items-center gap-2 ${currentTab === 'aula11' ? 'bg-[var(--color-aeg-blue)] text-white shadow-lg' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
+            >
+              {currentTab === 'aula10' && <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>}
+              Aula 11
+            </button>
+            <button 
+              onClick={() => setCurrentTab('aula12')}
+              className={`px-6 py-2 rounded-md font-bold text-sm tracking-wide uppercase transition-all flex items-center gap-2 ${currentTab === 'aula12' ? 'bg-[var(--color-aeg-blue)] text-white shadow-lg' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
+            >
+              {currentTab === 'aula11' && <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>}
+              Aula 12
+            </button>
+            <button 
+              onClick={() => setCurrentTab('aula13')}
+              className={`px-6 py-2 rounded-md font-bold text-sm tracking-wide uppercase transition-all flex items-center gap-2 ${currentTab === 'aula13' ? 'bg-[var(--color-aeg-blue)] text-white shadow-lg' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
+            >
+              {currentTab === 'aula12' && <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>}
+              Aula 13
+            </button>
           </nav>
         </div>
       </div>
@@ -2422,7 +3310,10 @@ export default function App() {
           {currentTab === 'aula07' && <Aula07 key="aula07" onNext={() => setCurrentTab('aula08')} />}
           {currentTab === 'aula08' && <Aula08 key="aula08" onNext={() => setCurrentTab('aula09')} />}
           {currentTab === 'aula09' && <Aula09 key="aula09" onNext={() => setCurrentTab('aula10')} />}
-          {currentTab === 'aula10' && <Aula10 key="aula10" />}
+          {currentTab === 'aula10' && <Aula10 key="aula10" onNext={() => setCurrentTab('aula11')} />}
+          {currentTab === 'aula11' && <Aula11 key="aula11" onNext={() => setCurrentTab('aula12')} />}
+          {currentTab === 'aula12' && <Aula12 key="aula12" onNext={() => setCurrentTab('aula13')} />}
+          {currentTab === 'aula13' && <Aula13 key="aula13" />}
         </AnimatePresence>
       </div>
 
